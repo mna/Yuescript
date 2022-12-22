@@ -40,7 +40,7 @@ add_library(libyue MODULE
 )
 set_target_properties(libyue PROPERTIES PREFIX "")
 set_target_properties(libyue PROPERTIES OUTPUT_NAME "yue")
-target_link_libraries(libyue ${LUA_LIBRARIES})
+target_link_libraries(libyue PRIVATE ${LUA_LIBRARIES})
 
 add_executable(yue
 	src/yuescript/ast.cpp
@@ -140,9 +140,9 @@ elseif (NOT (${CMAKE_SYSTEM_NAME} MATCHES "Haiku") AND NOT WIN32)
 else ()
 	target_link_libraries(yue PRIVATE ${LUA_LIBRARIES})
 endif()
-	
+
 IF(CMAKE_DL_LIBS)
-	target_link_libraries(yue ${CMAKE_DL_LIBS})
+	target_link_libraries(yue PRIVATE ${CMAKE_DL_LIBS})
 ENDIF(CMAKE_DL_LIBS)
 IF(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 	target_link_options(yue PRIVATE -lstdc++fs)
